@@ -7,6 +7,7 @@
 ######test change#############
 
 import random
+import datetime
 
 NO_OF_RECENT_SCORES = 3
 
@@ -19,6 +20,7 @@ class TRecentScore():
   def __init__(self):
     self.Name = ''
     self.Score = 0
+    self.Date = None
 
 Deck = [None]
 RecentScores = [None]
@@ -168,20 +170,23 @@ def ResetRecentScores(RecentScores):
   for Count in range(1, NO_OF_RECENT_SCORES + 1):
     RecentScores[Count].Name = ''
     RecentScores[Count].Score = 0
+    RecentScores[Count].Date = None
 
 def DisplayRecentScores(RecentScores):
   print()
   print('Recent Scores: ')
   print()
-  print("|{0:<10}|{1:<5}|".format("Name","Score"))
+  print("{0:<10}{1:<6}{2:<8}".format("Name","Score","Date"))
   for Count in range(1, NO_OF_RECENT_SCORES + 1):
-    print("|{0:<10}|{1:<5}|".format(RecentScores[Count].Name,RecentScores[Count].Score))
+    print("{0:<10}{1:<6}{2:<8}".format(RecentScores[Count].Name,RecentScores[Count].Score,RecentScores[Count].Date))
   print()
   print('Press the Enter key to return to the main menu')
   input()
   print()
 
 def UpdateRecentScores(RecentScores, Score):
+  Date = datetime.date.today()
+  Date = datetime.datetime.strftime(Date,"%d,%m,%y")
   Valid = False
   while not Valid:
     YesorNo = input("Would you like your name to be added to the recent high scores? y/n ").lower()
@@ -210,9 +215,11 @@ def UpdateRecentScores(RecentScores, Score):
     for Count in range(1, NO_OF_RECENT_SCORES):
       RecentScores[Count].Name = RecentScores[Count + 1].Name
       RecentScores[Count].Score = RecentScores[Count + 1].Score
+      RecentScores[Count].Date = RecentScores[Count + 1].Date
     Count = NO_OF_RECENT_SCORES
   RecentScores[Count].Name = PlayerName
   RecentScores[Count].Score = Score
+  RecentScores[Count].Date = Date
 
 def PlayGame(Deck, RecentScores):
   LastCard = TCard()
