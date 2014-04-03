@@ -7,16 +7,16 @@ a)
 3. The extra variable is GotName and it will be a boolean value
 
 FUNCTION GetPlayerName():
-	GotName = FALSE  return
-	WHILE NOT GotName DO  return
-		OUTPUT " "  return
-		PlayerName <- INPUT "Please enter your name: "  return
-		OUTPUT " "  return
-		IF PlayerName = " " THEN  return
-			OUTPUT "You need to input a name!"  return
-		ELSE  return
-			GotName = TRUE  return
-	RETURN GotName  return
+	GotName = FALSE  
+	WHILE NOT GotName DO  
+		OUTPUT " "  
+		PlayerName <- INPUT "Please enter your name: "  
+		OUTPUT " "  
+		IF PlayerName = " " THEN  
+			OUTPUT "You need to input a name!"  
+		ELSE  
+			GotName = TRUE  
+	RETURN GotName  
 END FUNCTION
 
 b)
