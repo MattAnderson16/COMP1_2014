@@ -78,8 +78,10 @@ def DisplayMenu():
   print('Select an option from the menu (or enter q to quit): ', end='')
 
 def GetMenuChoice():
-  Choice = input()
+  Choice = input().lower()
   print()
+  if Choice == "quit":
+    Choice = "q"
   return Choice
 
 def LoadDeck(Deck):
@@ -129,9 +131,15 @@ def IsNextCardHigher(LastCard, NextCard):
   return Higher
 
 def GetPlayerName():
-  print()
-  PlayerName = input('Please enter your name: ')
-  print()
+  GotName = False
+  while not GotName:
+    print()
+    PlayerName = input('Please enter your name: ')
+    print()
+    if PlayerName == " ":
+      print("You need to input a name!")
+    else:
+      GotName = True
   return PlayerName
 
 def GetChoiceFromUser():
@@ -173,7 +181,23 @@ def DisplayRecentScores(RecentScores):
   print()
 
 def UpdateRecentScores(RecentScores, Score):
-  PlayerName = GetPlayerName()
+  Valid = False
+  while not Valid:
+    YesorNo = input("Would you like your name to be added to the recent high scores? y/n ").lower()
+    if YesorNo in ["y","n","yes","no"]: 
+      if YesorNo == "y":
+        PlayerName = GetPlayerName()
+        Valid = True
+      elif YesorNo == "n":
+        PlayerName = "Anonymous"
+        Valid = True
+      elif YesorNo == "yes":
+        PlayerName = GetPlayerName()
+        Valid = True
+      elif YesorNo == "no":
+        PlayerName = "Anonymous"
+        Valid = True
+      
   FoundSpace = False
   Count = 1
   while (not FoundSpace) and (Count <= NO_OF_RECENT_SCORES):
