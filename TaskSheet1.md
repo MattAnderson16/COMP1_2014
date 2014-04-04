@@ -6,18 +6,33 @@ a)
 2. Using a while loop that exits once the player has entered their name
 3. The extra variable is GotName and it will be a boolean value
 
+<<<<<<< HEAD
 FUNCTION GetPlayerName():
-    &nbsp;&nbsp;&nbsp;GotName = FALSE  
-    &nbsp;&nbsp;&nbsp;WHILE NOT GotName DO  
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUTPUT " "  
-	&nbsp;&nbsp;&nbsp;PlayerName <- INPUT "Please enter your name: "  
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUTPUT " "  
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF PlayerName = " " THEN  
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OUTPUT "You need to input a name!"  
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE  
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GotName = TRUE  
-    &nbsp;&nbsp;&nbsp;RETURN GotName  
+    GotName = FALSE  
+    WHILE NOT GotName DO  
+		OUTPUT " "  
+		PlayerName <- INPUT "Please enter your name: "  
+		;OUTPUT " "  
+		IF PlayerName = " " THEN  
+			OUTPUT "You need to input a name!"  
+		ELSE  
+			GotName = TRUE  
+    RETURN GotName  
 END FUNCTION
+=======
+	FUNCTION GetPlayerName():
+		GotName = FALSE  
+		WHILE NOT GotName DO  
+			OUTPUT " "  
+			PlayerName <- INPUT "Please enter your name: "  
+			OUTPUT " "  
+			IF PlayerName = " " THEN  
+				OUTPUT "You need to input a name!"  
+			ELSE  
+				GotName = TRUE  
+		RETURN GotName  
+	END FUNCTION
+>>>>>>> TaskSheet1
 
 b)
 1. UpdateRecentScores(RecentScores, Score)
