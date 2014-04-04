@@ -6,20 +6,6 @@ a)
 2. Using a while loop that exits once the player has entered their name
 3. The extra variable is GotName and it will be a boolean value
 
-<<<<<<< HEAD
-FUNCTION GetPlayerName():
-    GotName = FALSE  
-    WHILE NOT GotName DO  
-		OUTPUT " "  
-		PlayerName <- INPUT "Please enter your name: "  
-		;OUTPUT " "  
-		IF PlayerName = " " THEN  
-			OUTPUT "You need to input a name!"  
-		ELSE  
-			GotName = TRUE  
-    RETURN GotName  
-END FUNCTION
-=======
 	FUNCTION GetPlayerName():
 		GotName = FALSE  
 		WHILE NOT GotName DO  
@@ -32,7 +18,7 @@ END FUNCTION
 				GotName = TRUE  
 		RETURN GotName  
 	END FUNCTION
->>>>>>> TaskSheet1
+
 
 b)
 1. UpdateRecentScores(RecentScores, Score)
