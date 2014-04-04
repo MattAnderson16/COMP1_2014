@@ -82,8 +82,7 @@ def DisplayMenu():
 def GetMenuChoice():
   Choice = input().lower()
   print()
-  if Choice == "quit":
-    Choice = "q"
+  Choice = Choice[0]
   return Choice
 
 def LoadDeck(Deck):
@@ -146,10 +145,7 @@ def GetPlayerName():
 
 def GetChoiceFromUser():
   Choice = input('Do you think the next card will be higher than the last card (enter y or n)? ').lower()
-  if Choice == "yes":
-    Choice = "y"
-  elif Choice == "no":
-    Choice = "n"
+  Choice = Choice[0]
   return Choice
 
 def DisplayEndOfGameMessage(Score):
