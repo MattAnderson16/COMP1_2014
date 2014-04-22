@@ -191,15 +191,14 @@ def UpdateRecentScores(RecentScores, Score):
         PlayerName = GetPlayerName()
         Valid = True
       elif YesorNo == "n":
-        PlayerName = "Anonymous"
+        PlayerName = ""
         Valid = True
       elif YesorNo == "yes":
         PlayerName = GetPlayerName()
         Valid = True
       elif YesorNo == "no":
-        PlayerName = "Anonymous"
+        PlayerName = ""
         Valid = True
-      
   FoundSpace = False
   Count = 1
   while (not FoundSpace) and (Count <= NO_OF_RECENT_SCORES):
