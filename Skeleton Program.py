@@ -22,6 +22,10 @@ class TRecentScore():
     self.Score = 0
     self.Date = None
 
+class Options():
+  def __init__(self):
+    self.Ace = 'low'
+
 Deck = [None]
 RecentScores = [None]
 Choice = ''
@@ -76,6 +80,7 @@ def DisplayMenu():
   print('2. Play game (without shuffle)')
   print('3. Display recent scores')
   print('4. Reset recent scores')
+  print('5. Options')
   print()
   print('Select an option from the menu (or enter q to quit): ', end='')
 
@@ -85,7 +90,7 @@ def GetMenuChoice():
   Choice = Choice[0]
   return Choice
 
-def LoadDeck(Deck):
+def LoadDeck(Deck, Options):
   CurrentFile = open('deck.txt', 'r')
   Count = 1
   while True:
@@ -96,6 +101,8 @@ def LoadDeck(Deck):
     Deck[Count].Suit = int(LineFromFile)
     LineFromFile = CurrentFile.readline()
     Deck[Count].Rank = int(LineFromFile)
+    if Options.Ace = 'high' and deck[Count].Rank = 1:
+      Deck[Count].Rank = 14
     Count = Count + 1
  
 def ShuffleDeck(Deck):
@@ -244,7 +251,48 @@ def PlayGame(Deck, RecentScores):
     DisplayEndOfGameMessage(51)
     UpdateRecentScores(RecentScores, 51)
 
+def DisplayOptions(Options):
+  Ace = Options.Ace
+  print()
+  print("OPTIONS")
+  print()
+  print("1. Ace: ", Ace)
+  print()
+  print("Select an option or press q to quit: ")
+
+def GetOptionChoice():
+  Valid = False
+  while not Valid:
+    Choice = input().lower()
+    print()
+    if Choice in [1,'q']:
+      Valid = True
+  Choice = Choice[0]
+  return Choice
+
+def SetOptions(OptionChoice,Options):
+  if OptionChoice == '1':
+    SetAceHighOrLow(Options)
+
+def SetAceHighOrLow(Options):
+  print()
+  print("Would you like the ace to be high or low? ")
+  Finished = False
+  while not Finished:
+    Choice = input().lower()
+    output()
+    Choice = Choice[0]
+    if Choice == "h":
+      Options.Ace = "high"
+      Finished = True
+    elif Choice == "l":
+      Options.Ace = "low"
+      Finished = True
+    else:
+      print("Please input a valid choice")
+
 if __name__ == '__main__':
+  Options = Options()
   for Count in range(1, 53):
     Deck.append(TCard())
   for Count in range(1, NO_OF_RECENT_SCORES + 1):
@@ -264,3 +312,8 @@ if __name__ == '__main__':
       DisplayRecentScores(RecentScores)
     elif Choice == '4':
       ResetRecentScores(RecentScores)
+    elif Choice == '5':
+      DisplayOptions(Options)
+      OptionChoice = GetOptionChoice()
+      if OptionChoice != 'q':
+        SetOptions(OptionChoice,Options)
