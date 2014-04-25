@@ -22,10 +22,7 @@ class TRecentScore():
     self.Score = '-'
     self.Date = '-'
 
-class Options():
-  def __init__(self):
-    self.Ace = 'low'
-
+Ace = 'low'
 Deck = [None]
 RecentScores = [None]
 Choice = ''
@@ -92,7 +89,8 @@ def GetMenuChoice():
   Choice = Choice[0]
   return Choice
 
-def LoadDeck(Deck, Options):
+def LoadDeck(Deck):
+  global Ace
   CurrentFile = open('deck.txt', 'r')
   Count = 1
   while True:
@@ -103,7 +101,7 @@ def LoadDeck(Deck, Options):
     Deck[Count].Suit = int(LineFromFile)
     LineFromFile = CurrentFile.readline()
     Deck[Count].Rank = int(LineFromFile)
-    if Options.Ace == 'high' and Deck[Count].Rank == 1:
+    if Ace == 'high' and Deck[Count].Rank == 1:
       Deck[Count].Rank = 14
     Count = Count + 1
  
@@ -253,8 +251,8 @@ def PlayGame(Deck, RecentScores):
     DisplayEndOfGameMessage(51)
     UpdateRecentScores(RecentScores, 51)
 
-def DisplayOptions(Options):
-  Ace = Options.Ace
+def DisplayOptions():
+  global Ace
   print()
   print("OPTIONS")
   print()
@@ -266,19 +264,20 @@ def GetOptionChoice():
   Valid = False
   while not Valid:
     Choice = input().lower()
+    Choice = Choice[0]
     if Choice in ['1','q']:
       Valid = True
     else:
       print("Please input a valid option")
       print()
-  Choice = Choice[0]
   return Choice
 
-def SetOptions(OptionChoice,Options):
+def SetOptions(OptionChoice):
   if OptionChoice == '1':
-    SetAceHighOrLow(Options)
+    SetAceHighOrLow()
 
-def SetAceHighOrLow(Options):
+def SetAceHighOrLow():
+  global Ace
   print("Would you like the ace to be high or low? ")
   Finished = False
   while not Finished:
@@ -286,16 +285,28 @@ def SetAceHighOrLow(Options):
     print()
     Choice = Choice[0]
     if Choice == "h":
-      Options.Ace = "high"
+      Ace = "high"
       Finished = True
     elif Choice == "l":
-      Options.Ace = "low"
+      Ace = "low"
       Finished = True
     else:
       print("Please input a valid choice")
 
+def BubbleSortScores(RecentScores):
+  SwapMade = True
+  ListLength = len(RecentScores)
+  while SwapMade:
+    SwapMade = False
+    ListLength -=1
+    for count in range(ListLength):
+      if RecentScores[count+1] > RecentScores[count+2]:
+        Temp = RecentScores[count+2]
+        RecentScores[count+2] = RecentScores[count+1]
+        RecentScores[count+1] = Temp
+        SwapMade = True
+
 if __name__ == '__main__':
-  Options = Options()
   for Count in range(1, 53):
     Deck.append(TCard())
   for Count in range(1, NO_OF_RECENT_SCORES + 1):
@@ -305,20 +316,21 @@ if __name__ == '__main__':
     DisplayMenu()
     Choice = GetMenuChoice()
     if Choice == '1':
-      LoadDeck(Deck, Options)
+      LoadDeck(Deck)
       ShuffleDeck(Deck)
       PlayGame(Deck, RecentScores)
     elif Choice == '2':
-      LoadDeck(Deck, Options)
+      LoadDeck(Deck)
       PlayGame(Deck, RecentScores)
     elif Choice == '3':
+      BubbleSortScores(RecentScores)
       DisplayRecentScores(RecentScores)
     elif Choice == '4':
       ResetRecentScores(RecentScores)
     elif Choice == '5':
-      DisplayOptions(Options)
+      DisplayOptions()
       OptionChoice = GetOptionChoice()
       Finished = False
       while OptionChoice != 'q' and not Finished:
-        SetOptions(OptionChoice,Options)
+        SetOptions(OptionChoice)
         Finished = True
