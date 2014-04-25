@@ -18,9 +18,9 @@ class TCard():
 
 class TRecentScore():
   def __init__(self):
-    self.Name = ''
-    self.Score = 0
-    self.Date = None
+    self.Name = '-'
+    self.Score = '-'
+    self.Date = '-'
 
 class Options():
   def __init__(self):
@@ -58,6 +58,8 @@ def GetRank(RankNo):
     Rank = 'Queen'
   elif RankNo == 13:
     Rank = 'King'
+  elif RankNo == 14:
+    Rank = 'Ace'
   return Rank
 
 def GetSuit(SuitNo):
@@ -101,7 +103,7 @@ def LoadDeck(Deck, Options):
     Deck[Count].Suit = int(LineFromFile)
     LineFromFile = CurrentFile.readline()
     Deck[Count].Rank = int(LineFromFile)
-    if Options.Ace = 'high' and deck[Count].Rank = 1:
+    if Options.Ace == 'high' and Deck[Count].Rank == 1:
       Deck[Count].Rank = 14
     Count = Count + 1
  
@@ -265,7 +267,7 @@ def GetOptionChoice():
   while not Valid:
     Choice = input().lower()
     print()
-    if Choice in [1,'q']:
+    if Choice in ['1','q']:
       Valid = True
   Choice = Choice[0]
   return Choice
@@ -273,14 +275,15 @@ def GetOptionChoice():
 def SetOptions(OptionChoice,Options):
   if OptionChoice == '1':
     SetAceHighOrLow(Options)
+  else:
+    print("test")
 
 def SetAceHighOrLow(Options):
-  print()
   print("Would you like the ace to be high or low? ")
   Finished = False
   while not Finished:
     Choice = input().lower()
-    output()
+    print()
     Choice = Choice[0]
     if Choice == "h":
       Options.Ace = "high"
@@ -290,6 +293,7 @@ def SetAceHighOrLow(Options):
       Finished = True
     else:
       print("Please input a valid choice")
+      print()
 
 if __name__ == '__main__':
   Options = Options()
@@ -302,11 +306,11 @@ if __name__ == '__main__':
     DisplayMenu()
     Choice = GetMenuChoice()
     if Choice == '1':
-      LoadDeck(Deck)
+      LoadDeck(Deck, Options)
       ShuffleDeck(Deck)
       PlayGame(Deck, RecentScores)
     elif Choice == '2':
-      LoadDeck(Deck)
+      LoadDeck(Deck, Options)
       PlayGame(Deck, RecentScores)
     elif Choice == '3':
       DisplayRecentScores(RecentScores)
@@ -315,5 +319,7 @@ if __name__ == '__main__':
     elif Choice == '5':
       DisplayOptions(Options)
       OptionChoice = GetOptionChoice()
-      if OptionChoice != 'q':
+      Finished = False
+      while OptionChoice != 'q' and not Finished:
         SetOptions(OptionChoice,Options)
+        Finished = True
