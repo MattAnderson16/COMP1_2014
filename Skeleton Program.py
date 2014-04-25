@@ -266,17 +266,17 @@ def GetOptionChoice():
   Valid = False
   while not Valid:
     Choice = input().lower()
-    print()
     if Choice in ['1','q']:
       Valid = True
+    else:
+      print("Please input a valid option")
+      print()
   Choice = Choice[0]
   return Choice
 
 def SetOptions(OptionChoice,Options):
   if OptionChoice == '1':
     SetAceHighOrLow(Options)
-  else:
-    print("test")
 
 def SetAceHighOrLow(Options):
   print("Would you like the ace to be high or low? ")
@@ -293,7 +293,6 @@ def SetAceHighOrLow(Options):
       Finished = True
     else:
       print("Please input a valid choice")
-      print()
 
 if __name__ == '__main__':
   Options = Options()
