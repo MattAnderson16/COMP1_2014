@@ -32,30 +32,35 @@ b)
 
 ##Variable Roles
 Fixed Value: A variable created with a hard coded value that is not changed atall in the program 
+	NoOfSwaps = 1000 - 98
 
-Stepper: A variable counting through a predictable succession of values e.g.
-	for NoOfSwapsMadeSoFar in range(1, NoOfSwaps + 1):
-		Position1 = random.randint(1, 52)
-		...
+Stepper: A variable that increments in a predictable sequence
+	Count - 162
+	NoOfCardsTurnedOver - 192
+	NoOfSwapsMadeSoFar - 99
+	
 
-Most recent holder: A variable holding the latest value obtained from an unpredictable succession of
-values or from an input
-	NextCard = ''
+Most recent holder: A variable holding the latest value received when processing an unpredictable succession of values
+	Choice = GetChoiceFromUser() - 197
+	LineFromFile - 92
+	LastCard - 187
+	
 
-Most wanted holder: A variable holding the most appropriate value encountered so far.
-	Choice = ''
+Most wanted holder: A variable that holds the latest variable that the programmer or user wants
+	NextCard - 198
 
-Gatherer: A variable gathering the effect of separate values
-	self.Score = 0
+Gatherer: A variable gathering the total of the values received so far
+	No examples
 
-Transformation: A variable that always gets its value from a fixed calculation of values of other variables
-	Position1 = random.randint(1, 52)
+Transformation: A variable that always gets its value from a calculaltion or other variables
+	Higher - 124
+	FoundSpace - 171
 
-Follower: A variable that gets its new value from the old value of another data item
-	LastCard = ''
+Follower: A variable that gets its new value from the old value of another variable
+	LastCard - 187
 
-Temporary: A variable that only holds data for a short amount of time
-	Higher = True
+Temporary: A variable used as an intermediary
+	SwapSpace - 97
 
 ##Functions and Parameters
 1. If data is passed by value then a copy of the data is made for the function and if it gets edited within the function
@@ -64,9 +69,9 @@ the data within the function is pointing to the original data and any changes ma
 original copy of the data outside of the function. This means the data would not need a return value.
 
 2. 
-GetRank - RankNo - Passed by reference
-GetSuit - SuitNo - Passed by reference
-LoadDeck - Deck - Passed by reference
+25 - GetRank - RankNo - Passed by value
+55 - GetSuit - SuitNo - Passed by value
+139 - score - Passed by value
 ShuffleDeck - Deck - Passed by reference
 DisplayCard - ThisCard - Passed by reference
 GetCard - ThisCard - Passed by reference
