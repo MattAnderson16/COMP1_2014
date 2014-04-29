@@ -8,6 +8,7 @@
 
 import random
 import datetime
+import pdb
 
 NO_OF_RECENT_SCORES = 3
 
@@ -19,7 +20,7 @@ class TCard():
 class TRecentScore():
   def __init__(self):
     self.Name = '-'
-    self.Score = '-'
+    self.Score = 0
     self.Date = '-'
 
 Ace = 'low'
@@ -29,7 +30,7 @@ Choice = ''
 
 def GetRank(RankNo):
   Rank = ''
-  if RankNo == 1:
+  if RankNo == 1 or RankNo == 14:
     Rank = 'Ace'
   elif RankNo == 2:
     Rank = 'Two'
@@ -55,8 +56,6 @@ def GetRank(RankNo):
     Rank = 'Queen'
   elif RankNo == 13:
     Rank = 'King'
-  elif RankNo == 14:
-    Rank = 'Ace'
   return Rank
 
 def GetSuit(SuitNo):
@@ -102,7 +101,7 @@ def LoadDeck(Deck):
     LineFromFile = CurrentFile.readline()
     Deck[Count].Rank = int(LineFromFile)
     if Ace == 'high' and Deck[Count].Rank == 1:
-      Deck[Count].Rank = 14
+      Deck[Count].Rank = 14 
     Count = Count + 1
  
 def ShuffleDeck(Deck):
@@ -181,7 +180,7 @@ def DisplayRecentScores(RecentScores):
   print()
   print("{0:<10}{1:<6}{2:<8}".format("Name","Score","Date"))
   for Count in range(1, NO_OF_RECENT_SCORES + 1):
-    print("{0:<10}{1:<6}{2:<8}".format(RecentScores[Count].Name,RecentScores[Count].Score,RecentScores[Count].Date))
+    print("{0:<10}{1:<6}{2:<8}".format(RecentScores[Count].Name,RecentScores[Count].Score, RecentScores[Count].Date))
   print()
   print('Press the Enter key to return to the main menu')
   input()
@@ -193,17 +192,12 @@ def UpdateRecentScores(RecentScores, Score):
   Valid = False
   while not Valid:
     YesorNo = input("Would you like your name to be added to the recent high scores? y/n ").lower()
+    YesoorNo = YesorNo[0]
     if YesorNo in ["y","n","yes","no"]: 
       if YesorNo == "y":
         PlayerName = GetPlayerName()
         Valid = True
       elif YesorNo == "n":
-        PlayerName = ""
-        Valid = True
-      elif YesorNo == "yes":
-        PlayerName = GetPlayerName()
-        Valid = True
-      elif YesorNo == "no":
         PlayerName = ""
         Valid = True
   FoundSpace = False
@@ -222,6 +216,7 @@ def UpdateRecentScores(RecentScores, Score):
   RecentScores[Count].Name = PlayerName
   RecentScores[Count].Score = Score
   RecentScores[Count].Date = Date
+  return RecentScores
 
 def PlayGame(Deck, RecentScores):
   LastCard = TCard()
@@ -299,12 +294,13 @@ def BubbleSortScores(RecentScores):
   while SwapMade:
     SwapMade = False
     ListLength -=1
-    for count in range(ListLength):
-      if RecentScores[count+1] > RecentScores[count+2]:
-        Temp = RecentScores[count+2]
-        RecentScores[count+2] = RecentScores[count+1]
-        RecentScores[count+1] = Temp
+    for count in range(1, ListLength):
+      if RecentScores[count].Score > RecentScores[count+1].Score:
+        Temp = RecentScores[count+1].Score
+        RecentScores[count+1].Score = RecentScores[count].Score
+        RecentScores[count].Score = Temp
         SwapMade = True
+        return RecentScores
 
 if __name__ == '__main__':
   for Count in range(1, 53):
@@ -323,7 +319,7 @@ if __name__ == '__main__':
       LoadDeck(Deck)
       PlayGame(Deck, RecentScores)
     elif Choice == '3':
-      BubbleSortScores(RecentScores)
+      RecentScores = BubbleSortScores(RecentScores)
       DisplayRecentScores(RecentScores)
     elif Choice == '4':
       ResetRecentScores(RecentScores)
