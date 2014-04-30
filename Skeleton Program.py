@@ -188,7 +188,7 @@ def DisplayRecentScores(RecentScores):
 
 def UpdateRecentScores(RecentScores, Score):
   Date = datetime.date.today()
-  Date = datetime.datetime.strftime(Date,"%d,%m,%y")
+  Date = datetime.datetime.strftime(Date,"%d/%m/%y")
   Valid = False
   while not Valid:
     YesorNo = input("Would you like your name to be added to the recent high scores? y/n ").lower()
@@ -295,10 +295,10 @@ def BubbleSortScores(RecentScores):
     SwapMade = False
     ListLength -=1
     for count in range(1, ListLength):
-      if RecentScores[count].Score > RecentScores[count+1].Score:
-        Temp = RecentScores[count+1].Score
-        RecentScores[count+1].Score = RecentScores[count].Score
-        RecentScores[count].Score = Temp
+      if RecentScores[count+1].Score > RecentScores[count].Score:
+        Temp = RecentScores[count]
+        RecentScores[count] = RecentScores[count+1]
+        RecentScores[count+1] = Temp
         SwapMade = True
         return RecentScores
 
