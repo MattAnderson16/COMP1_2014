@@ -79,6 +79,7 @@ def DisplayMenu():
   print('3. Display recent scores')
   print('4. Reset recent scores')
   print('5. Options')
+  print('6. Save high scores')
   print()
   print('Select an option from the menu (or enter q to quit): ', end='')
 
@@ -302,6 +303,14 @@ def BubbleSortScores(RecentScores):
         SwapMade = True
         return RecentScores
 
+def SaveScores(RecentScores):
+  with open("Save_Scores.txt",mode = 'w', encoding = 'utf-8') as MyFile:
+    for count in range(1, len(RecentScores)):
+      MyFile.write("{0}\n".format(RecentScores[count].Name))
+      MyFile.write("{0}\n".format(RecentScores[count].Score))
+      MyFile.write("{0}\n".format(RecentScores[count].Date))
+      
+
 if __name__ == '__main__':
   for Count in range(1, 53):
     Deck.append(TCard())
@@ -330,3 +339,5 @@ if __name__ == '__main__':
       while OptionChoice != 'q' and not Finished:
         SetOptions(OptionChoice)
         Finished = True
+    elif Choice == '6':
+      SaveScores(RecentScores)
