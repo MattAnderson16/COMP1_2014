@@ -80,6 +80,7 @@ def DisplayMenu():
   print('4. Reset recent scores')
   print('5. Options')
   print('6. Save high scores')
+  print('7. Load high scores')
   print()
   print('Select an option from the menu (or enter q to quit): ', end='')
 
@@ -258,7 +259,7 @@ def DisplayOptions():
 
 def GetOptionChoice():
   Valid = False
-  while not Valid:
+  while not Valid: 
     Choice = input().lower()
     Choice = Choice[0]
     if Choice in ['1','q']:
@@ -297,9 +298,9 @@ def BubbleSortScores(RecentScores):
     ListLength -=1
     for count in range(1, ListLength):
       if RecentScores[count+1].Score > RecentScores[count].Score:
-        Temp = RecentScores[count]
-        RecentScores[count] = RecentScores[count+1]
-        RecentScores[count+1] = Temp
+        Temp = RecentScores[count+1]
+        RecentScores[count+1] = RecentScores[count]
+        RecentScores[count] = Temp
         SwapMade = True
         return RecentScores
 
@@ -309,8 +310,21 @@ def SaveScores(RecentScores):
       MyFile.write("{0}\n".format(RecentScores[count].Name))
       MyFile.write("{0}\n".format(RecentScores[count].Score))
       MyFile.write("{0}\n".format(RecentScores[count].Date))
-      
 
+def LoadScores():
+  global RecentScores
+  List = []
+  with open("Save_Scores.txt",mode = 'r', encoding = 'utf-8') as MyFile:
+    finished = False
+    for line in MyFile:
+      List.append(line)
+  for count in range(0,len(List),3):
+    TRecentScore.Name = List[count]
+    TRecentScore.Score = List[count+1]
+    TRecentScore.Date = List[count+2]
+    
+  
+  
 if __name__ == '__main__':
   for Count in range(1, 53):
     Deck.append(TCard())
@@ -341,3 +355,6 @@ if __name__ == '__main__':
         Finished = True
     elif Choice == '6':
       SaveScores(RecentScores)
+    elif Choice == '7':
+      LoadScores()
+      
