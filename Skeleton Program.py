@@ -291,6 +291,7 @@ def SetAceHighOrLow():
       print("Please input a valid choice")
 
 def BubbleSortScores(RecentScores):
+##  pdb.set_trace()
   SwapMade = True
   ListLength = len(RecentScores)
   while SwapMade:
@@ -315,15 +316,24 @@ def LoadScores():
   global RecentScores
   List = []
   with open("Save_Scores.txt",mode = 'r', encoding = 'utf-8') as MyFile:
-    finished = False
     for line in MyFile:
       List.append(line)
-  for count in range(0,len(List),3):
-    TRecentScore.Name = List[count]
-    TRecentScore.Score = List[count+1]
-    TRecentScore.Date = List[count+2]
-    
-  
+  finished = False
+  while not finished:
+    if List[0] == " ":
+      finished = True
+    else:
+      counter = 1
+    ##  pdb.set_trace()
+      for count in range(0,len(List),3):
+    ##    TRecentScore.Name = List[count]
+    ##    TRecentScore.Score = List[count+1]
+    ##    TRecentScore.Date = List[count+2]
+        RecentScores[counter].Name = List[count].rstrip("\n")
+        RecentScores[counter].Score = List[count+1].rstrip("\n")
+        RecentScores[counter].Date = List[count+2].rstrip("\n")
+        counter +=1
+      finished = True
   
 if __name__ == '__main__':
   for Count in range(1, 53):
@@ -342,7 +352,7 @@ if __name__ == '__main__':
       LoadDeck(Deck)
       PlayGame(Deck, RecentScores)
     elif Choice == '3':
-      RecentScores = BubbleSortScores(RecentScores)
+      BubbleSortScores(RecentScores)
       DisplayRecentScores(RecentScores)
     elif Choice == '4':
       ResetRecentScores(RecentScores)
