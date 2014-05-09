@@ -58,3 +58,6 @@
 |1| |q|normal |The program will exit the options menu | The program went back to the main menu|
 |2| |1|boundary|The program will prompt the user to enter whether they want to change the ace to be low or high| The program asked the user to input whether the ace is low or high|
 |3| |4|erroneous|The program will ask the user to enter a valid option|The program asked the user to input a valid option and looped back to the input|
+
+##Task 10b
+1. because the file may not have enough scores stored in it.
