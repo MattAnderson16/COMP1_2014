@@ -10,7 +10,7 @@ import random
 import datetime
 import pdb
 
-NO_OF_RECENT_SCORES = 3
+NO_OF_RECENT_SCORES = 10
 
 class TCard():
   def __init__(self):
@@ -19,9 +19,9 @@ class TCard():
 
 class TRecentScore():
   def __init__(self):
-    self.Name = ''
+    self.Name = '-'
     self.Score = 0
-    self.Date = ''
+    self.Date = '-'
 
 Ace = 'low'
 Deck = [None]
@@ -311,34 +311,30 @@ def SaveScores(RecentScores):
       MyFile.write("{0}\n".format(RecentScores[count].Name))
       MyFile.write("{0}\n".format(RecentScores[count].Score))
       MyFile.write("{0}\n".format(RecentScores[count].Date))
-  print("Save complete!")
 
 def LoadScores():
   global RecentScores
-  try:
-    with open("Save_Scores.txt",mode = 'r', encoding = 'utf-8') as MyFile:
-      List = []
-      for line in MyFile:
-        List.append(line)
-    finished = False
-    while not finished:
-      if List[0] == " ":
-        finished = True
-      else:
-        counter = 1
-      ##  pdb.set_trace()
-        for count in range(0,len(List),3):
-      ##    TRecentScore.Name = List[count]
-      ##    TRecentScore.Score = List[count+1]
-      ##    TRecentScore.Date = List[count+2]
-          RecentScores[counter].Name = List[count].rstrip("\n")
-          RecentScores[counter].Score = List[count+1].rstrip("\n")
-          RecentScores[counter].Date = List[count+2].rstrip("\n")
-          counter +=1
-        finished = True
-    print("High scores loaded")
-  except FileNotFoundError:
-    print("The save file could not be found")
+  List = []
+  with open("Save_Scores.txt",mode = 'r', encoding = 'utf-8') as MyFile:
+    for line in MyFile:
+      List.append(line)
+  finished = False
+  while not finished:
+    if List[0] == " ":
+      finished = True
+    else:
+      counter = 1
+    ##  pdb.set_trace()
+      for count in range(0,len(List),3):
+    ##    TRecentScore.Name = List[count]
+    ##    TRecentScore.Score = List[count+1]
+    ##    TRecentScore.Date = List[count+2]
+        RecentScores[counter].Name = List[count].rstrip("\n")
+        RecentScores[counter].Score = List[count+1].rstrip("\n")
+        RecentScores[counter].Score = int(RecentScores[counter].Score)
+        RecentScores[counter].Date = List[count+2].rstrip("\n")
+        counter +=1
+      finished = True
   
 if __name__ == '__main__':
   for Count in range(1, 53):
