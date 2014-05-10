@@ -245,7 +245,7 @@ def PlayGame(Deck, RecentScores):
       LastCard.Rank = NextCard.Rank
       LastCard.Suit = NextCard.Suit
     elif ((Higher and Choice == 'n') or (not Higher and Choice == 'y')) and Same:
-      print("Oops! the next card was the same!")
+      print("Oops! the next card was the same value!")
       print()
     else:
       GameOver = True
@@ -347,7 +347,7 @@ def SetSameScore():
   global EndIfSame
   yn = input("Do you want cards of the same value as the previous one to end the game? ").lower()
   while yn not in["y","yes","n","no"]:
-    print("Please input a valid answer")
+    print("Please input a valid response")
     yn = input("Do you want cards of the same value as the previous one to end the game? ").lower() 
   yn = yn[0]
   if yn == "y":
