@@ -1,6 +1,9 @@
 #Task Sheet 3 Questions
 
 ##Task 11
+
+###Questions
+
 1. In the main program
 2. IsNextCardHigher(LastCard, NextCard) and PlayGame(Deck, RecentScores)
 3. a true/false value for if the cards are the same
@@ -24,3 +27,11 @@ will need to have the new choice added
 			EndIfSame <- FALSE
 		END IF
 	END FUNCTION
+
+##Task 12
+
+###Questions
+
+1. NextCard and LastCard because they are the records for the two current cards
+   Score and the deck because they are what keep track of how far into the game the player is
+2. A binary file because the data that is being stored isn't all string data
