@@ -24,6 +24,7 @@ class TRecentScore():
     self.Date = '-'
 
 Ace = 'low'
+EndIfSame = True
 Deck = [None]
 RecentScores = [None]
 Choice = ''
@@ -134,10 +135,14 @@ def GetCard(ThisCard, Deck, NoOfCardsTurnedOver):
   Deck[52 - NoOfCardsTurnedOver].Rank = 0
 
 def IsNextCardHigher(LastCard, NextCard):
+  global EndIfSame
   Higher = False
-  if NextCard.Rank > LastCard.Rank:
+  Same = False
+  if NextCard.Rank == LastCard.Rank and EndIfSame == False:
+    Same = True
+  elif NextCard.Rank > LastCard.Rank:
     Higher = True
-  return Higher
+  return Higher,Same
 
 def GetPlayerName():
   GotName = False
@@ -233,12 +238,15 @@ def PlayGame(Deck, RecentScores):
     while (Choice != 'y') and (Choice != 'n'):
       Choice = GetChoiceFromUser()
     DisplayCard(NextCard)
+    Higher,Same = IsNextCardHigher(LastCard, NextCard)
     NoOfCardsTurnedOver = NoOfCardsTurnedOver + 1
-    Higher = IsNextCardHigher(LastCard, NextCard)
     if (Higher and Choice == 'y') or (not Higher and Choice == 'n'):
       DisplayCorrectGuessMessage(NoOfCardsTurnedOver - 1)
       LastCard.Rank = NextCard.Rank
       LastCard.Suit = NextCard.Suit
+    elif ((Higher and Choice == 'n') or (not Higher and Choice == 'y')) and Same:
+      print("Oops! the next card was the same!")
+      print()
     else:
       GameOver = True
   if GameOver:
@@ -249,11 +257,11 @@ def PlayGame(Deck, RecentScores):
     UpdateRecentScores(RecentScores, 51)
 
 def DisplayOptions():
-  global Ace
   print()
   print("OPTIONS")
   print()
-  print("1. Ace: ", Ace)
+  print("1. Ace high or low")
+  print("2. End game if same card")
   print()
   print("Select an option or press q to quit: ")
 
@@ -262,7 +270,7 @@ def GetOptionChoice():
   while not Valid: 
     Choice = input().lower()
     Choice = Choice[0]
-    if Choice in ['1','q']:
+    if Choice in ['1','2','q']:
       Valid = True
     else:
       print("Please input a valid option")
@@ -272,6 +280,8 @@ def GetOptionChoice():
 def SetOptions(OptionChoice):
   if OptionChoice == '1':
     SetAceHighOrLow()
+  elif OptionChoice == '2':
+    SetSameScore()
 
 def SetAceHighOrLow():
   global Ace
@@ -293,17 +303,14 @@ def SetAceHighOrLow():
 def BubbleSortScores(RecentScores):
 ##  pdb.set_trace()
   SwapMade = True
-  ListLength = len(RecentScores)
   while SwapMade:
     SwapMade = False
-    ListLength -=1
-    for count in range(1, ListLength):
+    for count in range(1, NO_OF_RECENT_SCORES):
       if RecentScores[count+1].Score > RecentScores[count].Score:
         Temp = RecentScores[count+1]
         RecentScores[count+1] = RecentScores[count]
         RecentScores[count] = Temp
         SwapMade = True
-        return RecentScores
 
 def SaveScores(RecentScores):
   with open("Save_Scores.txt",mode = 'w', encoding = 'utf-8') as MyFile:
@@ -335,7 +342,19 @@ def LoadScores():
         RecentScores[counter].Date = List[count+2].rstrip("\n")
         counter +=1
       finished = True
-  
+
+def SetSameScore():
+  global EndIfSame
+  yn = input("Do you want cards of the same value as the previous one to end the game? ").lower()
+  while yn not in["y","yes","n","no"]:
+    print("Please input a valid answer")
+    yn = input("Do you want cards of the same value as the previous one to end the game? ").lower() 
+  yn = yn[0]
+  if yn == "y":
+    EndIfSame = True
+  elif yn == "n":
+    EndIfSame = False
+
 if __name__ == '__main__':
   for Count in range(1, 53):
     Deck.append(TCard())
