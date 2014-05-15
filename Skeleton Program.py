@@ -332,7 +332,7 @@ def LoadScores():
     else:
       counter = 1
     ##  pdb.set_trace()
-      for count in range(0,len(List),3):
+      for count in range(0,3*NO_OF_RECENT_SCORES,3): #len(List) changed to 3*NO_OF_RECENT_SCORES
     ##    TRecentScore.Name = List[count]
     ##    TRecentScore.Score = List[count+1]
     ##    TRecentScore.Date = List[count+2]
